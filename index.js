@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 
 const createWindow = () => {
@@ -30,4 +30,9 @@ app.whenReady().then(() => {
             createWindow()
         }
     })
+})
+
+ipcMain.handle('send-event', (e, msg) => {
+    console.log(msg)
+    return msg
 })

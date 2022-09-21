@@ -4,7 +4,14 @@
 //     console.log(process.platform)
 // })
 
-const { contextBridge } = require('electron')
+const { contextBridge, ipcRenderer } = require('electron')
+
+const handleSend = async () => {
+    console.log('1222')
+    const res = await ipcRenderer.invoke('send-event', 'hello')
+    console.log(res)
+}
 contextBridge.exposeInMainWorld('myApi', {
-    platform: process.platform
+    platform: process.platform,
+    handleSend
 })
