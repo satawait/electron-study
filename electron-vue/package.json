@@ -1,0 +1,21 @@
+{
+  "name": "electron-vue",
+  "private": true,
+  "version": "0.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "nodemon --exec electron . --watch ./ --ext .js,.html,.css"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.0",
+    "electron": "^21.0.1",
+    "electron-win-state": "^1.1.22",
+    "vite": "^3.1.0"
+  }
+}

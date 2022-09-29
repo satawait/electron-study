@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src * data:; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'"> -->
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
+    <input type="range" name="range" id="range">
     <button id="btn">点击</button>
+    <button id="btn2">copy</button>
+    <button id="btn3">paste</button>
+    <button id="btn4">capture</button>
+    <button id="btn5">image</button>
+    <img src="https://placekitten.com/500/500" alt="" srcset="">
+    <img src="" id="img" alt="" srcset="">
 </body>
 <script src="./test.js" type="module"></script>
 </html>
