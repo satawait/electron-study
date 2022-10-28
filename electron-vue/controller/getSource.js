@@ -16,13 +16,19 @@ const getSource = () => {
                     // console.log(title)
                     try {
                         const img = await win.webContents.capturePage()
-                        const screenshot = img.toDataURL()
-                        // console.log(screenshot
-                        resolve({
-                            title,
-                            screenshot,
-                            url
-                        })
+                        if (img.isEmpty()) {
+                            resolve({
+                                msg: '无法获取网站'
+                            })
+                        } else {
+                            const screenshot = img.toDataURL()
+                            // console.log(screenshot
+                            resolve({
+                                title,
+                                screenshot,
+                                url
+                            })
+                        }
                     } catch (error) {
                         console.log(error)
                         reject(error)

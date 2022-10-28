@@ -2,16 +2,17 @@
     <div>
         <p class="no-items" v-if="!websites.length">暂无数据</p>
         <div class="items">
-            <div class="read-item" v-for="(item, index) in websites" :key="item.url">
+            <div class="read-item" :class="{'selected': index === activeIndex}" v-for="(item, index) in websites" @click="activeItem(index, item)" :key="item.url">
                 <img :src="item.screenshot" alt="" srcset="">
                 <h2>{{ item.title }}</h2>
-                <button @click="deleteItem(index)"> x </button>
+                <button @click.stop="deleteItem(index)"> x </button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 const emits = defineEmits(['delete'])
 defineProps({
     websites: {
@@ -21,7 +22,15 @@ defineProps({
 })
 
 const deleteItem = index => {
+    activeIndex.value = -1
     emits('delete',index)
+}
+
+const activeIndex = ref(-1)
+const activeItem = (index, item) => {
+    activeIndex.value = index
+    myApi.open(item.url)
+    // window.open(item.url, '_blank', 'width=1300, height=800')
 }
 
 </script>
@@ -40,7 +49,7 @@ const deleteItem = index => {
     .read-item {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: start;
         border-bottom: lightgray 2px solid;
         background-color: #fafafa;
         border-left: 10px solid lightgray;

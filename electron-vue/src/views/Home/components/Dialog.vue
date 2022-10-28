@@ -2,7 +2,7 @@
     <div class="dialog-wrap">
         <div class="content">
             <div class="input">
-                <input v-model="url" type="text" placeholder="请输入网址">
+                <input v-model="url" type="text" placeholder="请输入网址" @keyup.enter="add">
             </div>
             <div class="btns">
                 <button @click="add">添加</button>
@@ -13,16 +13,20 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, toRefs } from 'vue'
+import { ref, defineEmits, toRefs, watch } from 'vue'
 const props = defineProps({
     websites: {
         type: Array,
         default: () => []
+    },
+    dialogVisible: {
+        type: Boolean,
+        default: false
     }
 })
-const { websites } = toRefs(props)
+const { websites, dialogVisible } = toRefs(props)
 const emit = defineEmits(['close', 'add'])
-const url = ref('https://www.baidu.com')
+const url = ref('')
 const close = () => {
     emit('close')
 }
@@ -33,8 +37,17 @@ const add = async () => {
         return
     }
     const res = await myApi.sendUrl(url.value)
+    if (!res.screenshot) {
+        myApi.alert(res.msg)
+        return
+    }
     emit('add', res)
 }
+watch(dialogVisible, val => {
+    if (!val) {
+        url.value = ''
+    }
+})
 </script>
 
 <style lang="scss" scoped>

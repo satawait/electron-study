@@ -9,7 +9,22 @@ const alert = (msg) => {
     ipcRenderer.invoke('on-alert-event', msg)
 }
 
+const open = url => {
+    ipcRenderer.invoke('on-open-event', url)
+}
+
+const close = url => {
+    ipcRenderer.invoke('on-close-event', url)
+}
+
+const saveImg = url => {
+    ipcRenderer.invoke('on-save-event', url)
+}
+
 contextBridge.exposeInMainWorld('myApi', {
     sendUrl,
-    alert
+    alert,
+    open,
+    close,
+    saveImg
 })

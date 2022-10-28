@@ -3,11 +3,15 @@ const WinState = require('electron-win-state').default
 const path = require('path')
 const getSource = require('./controller/getSource')
 const alert = require('./controller/alert')
+const open = require('./controller/open')
 
 const createWindow = () => {
     const winState = new WinState({
         defaultWidth: 1000,
-        defaultHeight: 800
+        defaultHeight: 800,
+        electronStoreOptions: {
+            name: 'main'
+        }
     })
     const win = new BrowserWindow({
         ...winState.winOptions,
@@ -26,6 +30,7 @@ const createWindow = () => {
     })
     getSource()
     alert()
+    open()
 }
 app.on('window-all-closed', () => {
     // mac

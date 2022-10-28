@@ -2,17 +2,21 @@
     <div class="search-container">
         <div class="button" @click="addClick">+</div>
         <div class="input">
-            <input type="text" placeholder="请输入关键字...">
+            <input v-model.lazy="keyword" type="text" placeholder="请输入关键字...">
         </div>
     </div>
 </template>
 
 <script setup>
-import { defineEmits } from "vue";
-const emit = defineEmits(['addClick'])
+import { defineEmits, watch, ref } from "vue";
+const emit = defineEmits(['addClick', 'search'])
+const keyword = ref('')
 const addClick = () => {
     emit('addClick')
 }
+watch(keyword, val => {
+    emit('search', val)
+})
 </script>
 
 <style scoped lang="scss">
