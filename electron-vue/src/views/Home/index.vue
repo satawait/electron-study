@@ -49,8 +49,14 @@ const deleteItem = index => {
 const search = val => {
     keyword.value = val
 }
-onMounted(() => {
+onMounted(async () => {
     websites.value = JSON.parse(localStorage.getItem('websites') || '[]')
+    myApi.openDialog()
+    await myApi.rendererEvent(res => {
+        if (res === 'add') {
+            dialogVisible.value = true
+        }
+    })
 })
 </script>
 

@@ -1,9 +1,12 @@
 const { app, BrowserWindow } = require("electron")
 const WinState = require('electron-win-state').default
 const path = require('path')
+require('./controller/buildMenu')
 const getSource = require('./controller/getSource')
 const alert = require('./controller/alert')
 const open = require('./controller/open')
+const getFileList = require('./controller/getFileList')
+const createTray = require("./tray")
 
 const createWindow = () => {
     const winState = new WinState({
@@ -31,6 +34,9 @@ const createWindow = () => {
     getSource()
     alert()
     open()
+    getFileList()
+
+    createTray(app, win)
 }
 app.on('window-all-closed', () => {
     // mac

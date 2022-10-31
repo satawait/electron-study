@@ -21,10 +21,30 @@ const saveImg = url => {
     ipcRenderer.invoke('on-save-event', url)
 }
 
+const getFileList = async () => {
+    const fileList = await ipcRenderer.invoke('on-get-file-event')
+    return fileList
+}
+
+const openDialog = url => {
+    ipcRenderer.send('on-openDialog-event', url)
+}
+
+const rendererEvent = (callback) => {
+    return new Promise((resolve, reject) => {
+        ipcRenderer.on('on-renderer-event', (e, msg) => {
+            callback(msg)
+        })
+    })
+}
+
 contextBridge.exposeInMainWorld('myApi', {
     sendUrl,
     alert,
     open,
     close,
-    saveImg
+    saveImg,
+    getFileList,
+    openDialog,
+    rendererEvent
 })
